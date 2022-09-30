@@ -1,0 +1,622 @@
+Estas son todas las cátedras disponibles para cada materia de tu currícula personal
+que dictan clases el dia TODOS después de las 18:00 horas
+
+Materias con catedras disponibles para este día y horario: 21/32
+
+(Aviso: pueden faltar algunos resultados. Esto se solucionará en versiones posteriores.)
+
+AYUDA:
+
+Dia 1: LUNES
+Dia 2: MARTES
+Dia 3: MIERCOLES
+Dia 4: JUEVES
+Dia 5: VIERNES
+Dia 6: SABADO
+
+
+
+MATERIA: FISICA II A (6203)
+[]
+--------------------------------------------------------------------------------
+MATERIA: ANALISIS NUMERICO I (7512)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "21:00",
+    "inicio": "18:00"
+   },
+   {
+    "dia": 3,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7512-CURSO: 02-Tarela",
+  "docentes": "TARELA, PABLO ADRIAN (Profesor/a Adjunto/a) - EZCURRA, DIEGO MARTIN (Jefe/a Trabajos Practicos) - POLTARAK, GUILLERMO RAUL CARLOS (Ayudante 1ro/a) - DIAZ, MARIA BELEN (Ayudante 2do/a)",
+  "materia": "7512"
+ },
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 3,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7512-CURSO: 03-Griggio",
+  "docentes": "GRIGGIO, DANIEL ADALBERTO (Profesor/a Adjunto/a) - NAVARRO, FABIAN (Jefe/a Trabajos Practicos) - CERRUTTI, SILVANA VALERIA (Ayudante 1ro/a)",
+  "materia": "7512"
+ },
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7512-CURSO: 07-Cavaliere Práctica Martes",
+  "docentes": "CAVALIERE, MIGUEL ANGEL (Profesor/a Adjunto/a) - MASTROPIETRO, GABRIEL MARCELO (Jefe/a Trabajos Practicos) - EZCURRA, DIEGO MARTIN (Ayudante 1ro/a) - BALZAROTTI, FEDERICO (Ayudante 1ro/a) - KOWAL, ADRIAN MARCELO (Ayudante 1ro/a)",
+  "materia": "7512"
+ },
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7512-CURSO: 08-Cavaliere Práctica Lunes",
+  "docentes": "CAVALIERE, MIGUEL ANGEL (Profesor/a Adjunto/a) - BALZAROTTI, FEDERICO (Ayudante 1ro/a) - PORTOCARRERO MIRANDA, MICHAEL (Ayudante 2do/a) - GARCIA, EZEQUIEL (Ayudante 2do/a)",
+  "materia": "7512"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: PROBABILIDAD Y ESTADISTICA B (6109)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "21:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 3,
+    "fin": "23:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "6109-CURSO: 22",
+  "docentes": "BOUZA, MAGDALENA (Jefe/a Trabajos Practicos) - LEVITÁN, DAVID ADRIÁN (Ayudante 1ro/a) - BERTALOT, FEDERICO MATÍAS (Ayudante 2do/a)",
+  "materia": "6109"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: IDIOMA INGLES (7801)
+[
+ {
+  "clases": [
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7801-CURSO 08",
+  "docentes": "JOHNSTONE, NANCY ELENA (Profesor/a Asociado/a) - ORTIZ, PATRICIA DEL VALLE (Jefe/a Trabajos Practicos) - BORRELLO, MARIA FLORENCIA (Ayudante 1ro/a)",
+  "materia": "7801"
+ },
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7801-CURSO: 01",
+  "docentes": "JOHNSTONE, NANCY ELENA (Profesor/a Asociado/a) - MARTIN, GRACIELA MABEL (Profesor/a Adjunto/a) - DOLENC, LUIS ALBERTO (Jefe/a Trabajos Practicos)",
+  "materia": "7801"
+ },
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7801-CURSO: 04",
+  "docentes": "JOHNSTONE, NANCY ELENA (Profesor/a Asociado/a) - MARTIN, GRACIELA MABEL (Profesor/a Adjunto/a) - BORRELLO, MARIA FLORENCIA (Ayudante 1ro/a)",
+  "materia": "7801"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: ESTRUCTURA DEL COMPUTADOR (6670)
+[]
+--------------------------------------------------------------------------------
+MATERIA: ORGANIZACION DE DATOS (7506)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7506-CURSO: 01-Argerich",
+  "docentes": "ARGERICH, LUIS RICARDO (Profesor/a Adjunto/a) - GOLMAR, NATALIA (Jefe/a Trabajos Practicos) - MARTINELLI, DAMIAN ARIEL (Ayudante 1ro/a) - RAMOS MEJIA, MARTÍN GABRIEL (Ayudante 1ro/a)",
+  "materia": "7506"
+ },
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 3,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7506-CURSO: 02-Rodriguez",
+  "docentes": "RODRIGUEZ, JUAN MANUEL (Ayudante 1ro/a)",
+  "materia": "7506"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: ANALISIS DE LA INFORMACION (7509)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "21:30",
+    "inicio": "18:30"
+   },
+   {
+    "dia": 4,
+    "fin": "21:30",
+    "inicio": "18:30"
+   }
+  ],
+  "codigo": "7509-CURSO: 01-Villagra",
+  "docentes": "VILLAGRA, SERGIO GUSTAVO (Profesor/a Adjunto/a) - BRUNO, TOMAS (Ayudante 1ro/a) - FERNANDEZ, LEONARDO DANIEL (Ayudante 1ro/a) - DE BENEDETTI, GUIDO RUBEN (Ayudante 2do/a)",
+  "materia": "7509"
+ },
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 3,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7509-CURSO: 02-Gonzalez",
+  "docentes": "GONZALEZ, NORBERTO DANIEL (Profesor/a Adjunto/a) - TURRI, ALEJANDRO (Jefe/a Trabajos Practicos)",
+  "materia": "7509"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: TEORIA DE ALGORITMOS I (7529)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 3,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7529-CURSO: 01-Podberezski",
+  "docentes": "PODBEREZSKI, VICTOR DANIEL (Jefe/a Trabajos Practicos) - LUDUEÑO, LUCAS EZEQUIEL (Ayudante 2do/a)",
+  "materia": "7529"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: TALLER DE PROGRAMACION I (7542)
+[
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7542-CURSO: 01-Veiga",
+  "docentes": "VEIGA, ANDRES ARTURO (Profesor/a Adjunto/a) - DI PAOLA, MARTIN PABLO (Ayudante 2do/a) - LAFROCE, MATÍAS EZEQUIEL (Ayudante 2do/a) - WERNER, EZEQUIEL MAXIMILIANO (Ayudante 2do/a)",
+  "materia": "7542"
+ },
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7542-CURSO: 02-Deymonnaz",
+  "docentes": "DEYMONNAZ, PABLO ANDRES (Jefe/a Trabajos Practicos) - KELMAN, URIEL (Ayudante 2do/a)",
+  "materia": "7542"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: MODELOS Y OPTIMIZACION I (7114)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 3,
+    "fin": "21:30",
+    "inicio": "18:30"
+   }
+  ],
+  "codigo": "7114-CURSO 2",
+  "docentes": "RAMOS, SILVIA ADRIANA (Profesor/a Adjunto/a) - ECHEVARRIA, PABLO (Profesor/a Adjunto/a) - OITANA, DIEGO MARTIN (Jefe/a Trabajos Practicos)",
+  "materia": "7114"
+ },
+ {
+  "clases": [
+   {
+    "dia": 3,
+    "fin": "21:30",
+    "inicio": "18:30"
+   },
+   {
+    "dia": 4,
+    "fin": "21:30",
+    "inicio": "18:30"
+   }
+  ],
+  "codigo": "7114-CURSO 3",
+  "docentes": "RAMOS, SILVIA ADRIANA (Profesor/a Adjunto/a) - ECHEVARRIA, PABLO (Profesor/a Adjunto/a) - NAVARRO, CARLOS ALBERTO (Jefe/a Trabajos Practicos) - LEVY, JONATHAN (Ayudante 1ro/a)",
+  "materia": "7114"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: BASE DE DATOS (7515)
+[]
+--------------------------------------------------------------------------------
+MATERIA: SISTEMAS OPERATIVOS (7508)
+[
+ {
+  "clases": [
+   {
+    "dia": 3,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 5,
+    "fin": "21:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7508-CURSO: 01-Mendez",
+  "docentes": "MENDEZ, MARIANO (Profesor/a Adjunto/a) - MUCCIO, ADRIAN (Jefe/a Trabajos Practicos) - FERNANDEZ, GUIDO ESTEBAN (Ayudante 1ro/a) - ABRAHAM, SANDRA AIDA (Ayudante 1ro/a)",
+  "materia": "7508"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: LEG. Y EJ. PROF. DE LA ING. EN INFORMAT. (7140)
+[
+ {
+  "clases": [
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7140-CURSO: 1",
+  "docentes": "NOREMBERG, ADRIAN (Profesor/a Adjunto/a) - D´ACCORSO, JAVIER HERNAN (Jefe/a Trabajos Practicos) - PAGANI, NESTOR DARIO (Jefe/a Trabajos Practicos) - IRANZI, MARTIN (Ayudante 2do/a)",
+  "materia": "7140"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: TALLER DE PROGRAMACION II (7552)
+[]
+--------------------------------------------------------------------------------
+MATERIA: INTRODUCCION A LOS SISTEMAS DISTRIBUIDOS (7543)
+[
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 5,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7543-CURSO: 01-Alvarez Hamelin",
+  "docentes": "ALVAREZ HAMELIN, JOSE IGNACIO (Profesor/a Adjunto/a) - LOPEZ DESTAIN, FRANCISCO (Ayudante 2do/a)",
+  "materia": "7543"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: TECNICAS DE DISEÑO (7510)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7510-CURSO: 01-Pantaleo",
+  "docentes": "PANTALEO, GUILLERMO GUSTAVO (Profesor/a Adjunto/a) - MONTALDO, DIEGO FERNANDO (Jefe/a Trabajos Practicos) - TRISTANT, FLORENCIA (Ayudante 2do/a)",
+  "materia": "7510"
+ },
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7510-CURSO: 02-Paez",
+  "docentes": "PAEZ, NICOLAS MARTIN (Profesor/a Adjunto/a) - GUTTER, EMILIO (Ayudante 1ro/a)",
+  "materia": "7510"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: TECNICAS DE PROGRAMACION CONCURRENTE I (7559)
+[
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 3,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7559-CURSO: 01-Deymonnaz",
+  "docentes": "DEYMONNAZ, PABLO ANDRES (Jefe/a Trabajos Practicos) - KELMAN, URIEL (Ayudante 2do/a)",
+  "materia": "7559"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: ORGANIZACION DE COMPUTADORAS (6620)
+[]
+--------------------------------------------------------------------------------
+MATERIA: MODELOS Y OPTIMIZACION II (7115)
+[]
+--------------------------------------------------------------------------------
+MATERIA: TEORIA DE ALGORITMOS II (7530)
+[
+ {
+  "clases": [
+   {
+    "dia": 5,
+    "fin": "23:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7530-CURSO: 01-Buchwald",
+  "docentes": "BUCHWALD, MARTÍN EZEQUIEL (Profesor/a Adjunto/a)",
+  "materia": "7530"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: SISTEMAS DISTRIBUIDOS I (7574)
+[
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "22:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "19:00"
+   }
+  ],
+  "codigo": "7574-CURSO: 01-Roca",
+  "docentes": "ROCA, PABLO DANIEL (Jefe/a Trabajos Practicos) - TORRES FEYUK, NICOLÁS RODRIGO EZEQUIEL (Ayudante 2do/a)",
+  "materia": "7574"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: UNKNOWN (6626)
+[]
+--------------------------------------------------------------------------------
+MATERIA: MODELOS Y OPTIMIZACION III (7120)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "23:00",
+    "inicio": "18:00"
+   },
+   {
+    "dia": 4,
+    "fin": "19:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7120-CURSO: 1",
+  "docentes": "RAMOS, SILVIA ADRIANA (Profesor/a Adjunto/a)",
+  "materia": "7120"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: ANÁLISIS Y RESOLUCIÓN DE PROBLEMAS (7141)
+[
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "22:30",
+    "inicio": "18:30"
+   },
+   {
+    "dia": 4,
+    "fin": "20:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7141-CURSO: 1",
+  "docentes": "RAMOS, SILVIA ADRIANA (Profesor/a Adjunto/a) - PEREYRA, GUSTAVO MARTIN (Ayudante 1ro/a)",
+  "materia": "7141"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: UNKNOWN (7561)
+[]
+--------------------------------------------------------------------------------
+MATERIA: ESTRUCTURA DE LAS ORGANIZACIONES (7112)
+[]
+--------------------------------------------------------------------------------
+MATERIA: CRIPTOGRAFIA Y SEGURIDAD INFORMATICA (6669)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "22:30",
+    "inicio": "19:30"
+   },
+   {
+    "dia": 5,
+    "fin": "22:30",
+    "inicio": "19:30"
+   }
+  ],
+  "codigo": "6669-CURSO: 1",
+  "docentes": "PAGOLA, HUGO ALBERTO (Profesor/a Adjunto/a) - VALLEJOS MARTINEZ, JAVIER JOSE (Jefe/a Trabajos Practicos)",
+  "materia": "6669"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: INTRODUCCION A LOS SISTEMAS INTELIGENTES (7550)
+[
+ {
+  "clases": [
+   {
+    "dia": 1,
+    "fin": "21:30",
+    "inicio": "18:30"
+   },
+   {
+    "dia": 4,
+    "fin": "21:30",
+    "inicio": "18:30"
+   }
+  ],
+  "codigo": "7550-CURSO: 01-Ochoa",
+  "docentes": "OCHOA, MARIA ALEJANDRA (Profesor/a Adjunto/a) - CONCILíO, GERMAN MARTÍN (Ayudante 1ro/a)",
+  "materia": "7550"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: INFORMACION EN LAS ORGANIZACIONES (7113)
+[
+ {
+  "clases": [
+   {
+    "dia": 2,
+    "fin": "21:00",
+    "inicio": "19:00"
+   },
+   {
+    "dia": 2,
+    "fin": "23:00",
+    "inicio": "21:00"
+   }
+  ],
+  "codigo": "7113-CURSO: 1",
+  "docentes": "PAEZ, VIVIANA CAROLINA (Jefe/a Trabajos Practicos) - VEVER, MARIA ELENA (Ayudante 1ro/a)",
+  "materia": "7113"
+ }
+]
+--------------------------------------------------------------------------------
+MATERIA: UNKNOWN (7563)
+[]
+--------------------------------------------------------------------------------
+MATERIA: SIST.DE PROG. NO CONVENCIONAL DE ROBOTS (7570)
+[]
+--------------------------------------------------------------------------------
+MATERIA: ARQUITECTURA DEL SOFTWARE (7573)
+[
+ {
+  "clases": [
+   {
+    "dia": 4,
+    "fin": "22:00",
+    "inicio": "18:00"
+   }
+  ],
+  "codigo": "7573-CURSO: 01-Calonico",
+  "docentes": "CALONICO, CHRISTIAN MARIO (Ayudante 1ro/a) - RUGILO, GUILLERMO HERNÁN (Ayudante 2do/a)",
+  "materia": "7573"
+ }
+]
+--------------------------------------------------------------------------------
