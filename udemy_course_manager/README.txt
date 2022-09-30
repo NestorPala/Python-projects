@@ -1,5 +1,6 @@
 HOW TO USE udemy_course_manager.py
 
+
 1. Go to https://www.udemy.com/
 2. Log into your account
 3. Set language to English
