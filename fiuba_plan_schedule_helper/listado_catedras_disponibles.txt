@@ -1,7 +1,7 @@
-Estas son todas las cátedras disponibles para cada materia de tu currícula personal
+Estas son todas las cátedras disponibles para cada materia de las que elegiste
 que dictan clases el dia TODOS después de las 18:00 horas
 
-Materias con catedras disponibles para este día y horario: 19/32
+Materias con catedras disponibles para este día y horario: 18/31
 
 (Aviso: pueden faltar algunos resultados. Esto se solucionará en versiones posteriores.)
 
@@ -109,46 +109,6 @@ MATERIA: PROBABILIDAD Y ESTADISTICA B (6109)
   "codigo": "6109-CURSO: 22",
   "docentes": "BELLO, IGNACIO ALBERTO (Profesor/a Adjunto/a) - LEVITÁN, DAVID ADRIÁN (Ayudante 1ro/a) - BERTALOT, FEDERICO MATÍAS (Ayudante 2do/a)",
   "materia": "6109"
- }
-]
---------------------------------------------------------------------------------
-MATERIA: IDIOMA INGLES (7801)
-[
- {
-  "clases": [
-   {
-    "dia": 4,
-    "fin": "22:00",
-    "inicio": "18:00"
-   }
-  ],
-  "codigo": "7801-CURSO 08-SEDE PASEO COLON",
-  "docentes": "JOHNSTONE, NANCY ELENA (Profesor/a Asociado/a) - ORTIZ, PATRICIA DEL VALLE (Jefe/a Trabajos Practicos) - BORRELLO, MARIA FLORENCIA (Ayudante 1ro/a)",
-  "materia": "7801"
- },
- {
-  "clases": [
-   {
-    "dia": 1,
-    "fin": "22:00",
-    "inicio": "18:00"
-   }
-  ],
-  "codigo": "7801-CURSO: 01-SEDE PASEO COLON",
-  "docentes": "JOHNSTONE, NANCY ELENA (Profesor/a Asociado/a) - MARTIN, GRACIELA MABEL (Profesor/a Adjunto/a) - DOLENC, LUIS ALBERTO (Jefe/a Trabajos Practicos)",
-  "materia": "7801"
- },
- {
-  "clases": [
-   {
-    "dia": 2,
-    "fin": "22:00",
-    "inicio": "18:00"
-   }
-  ],
-  "codigo": "7801-CURSO: 03-SEDE PASEO COLON",
-  "docentes": "JOHNSTONE, NANCY ELENA (Profesor/a Asociado/a) - MARTIN, GRACIELA MABEL (Profesor/a Adjunto/a) - BORRELLO, MARIA FLORENCIA (Ayudante 1ro/a)",
-  "materia": "7801"
  }
 ]
 --------------------------------------------------------------------------------

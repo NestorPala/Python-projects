@@ -126,14 +126,14 @@ def ingresar_dia_semana() -> str:
     return dia_semana.upper()
 
 
-def guardar_catedras_disponibles(listado_materias: dict, dia: str, horario_inicio: str) -> None:
+def guardar_catedras_disponibles(listado_materias: dict, materias_elegidas: list[int], dia: str, horario_inicio: str) -> None:
     catedras_file = open(CATEDRAS_OUTPUT, "w")
     catedras_disponibles_por_materia = dict()
 
-    for materia in materias_carrera:
+    for materia in materias_elegidas:
         catedras_disponibles_por_materia[materia] = obtener_catedras_disponibles(listado_materias, materia, horario_inicio, DIAS_SEMANA[dia])
     
-    print(f"Estas son todas las cátedras disponibles para cada materia de tu currícula personal\n", end="", file=catedras_file)
+    print(f"Estas son todas las cátedras disponibles para cada materia de las que elegiste\n", end="", file=catedras_file)
     print(f"que dictan clases el dia {dia} después de las {horario_inicio} horas\n", file=catedras_file)
 
     cantidad_disponibles = dict_amount_not_empty(catedras_disponibles_por_materia)
@@ -159,18 +159,50 @@ def guardar_catedras_disponibles(listado_materias: dict, dia: str, horario_inici
     catedras_file.close()
 
 
+def limpiar_listado_materias(materias: list) -> list:
+    normalized = list(map(lambda materia: materia.replace(" ", ""), materias.split(",")))
+    cleaned = list(filter(lambda materia: materia != '', normalized))
+    casted = list(map(lambda materia: int(materia), cleaned))
+    return casted
+
+
+def elegir_materias() -> list:
+    print("Mostrar datos de materias de:")
+    print("1) La currícula personal")
+    print("2) Un listado específico")
+
+    opcion = -1
+
+    while opcion != "1" and opcion != "2":
+        opcion = input("Ingrese 1 o 2: ")
+
+    materias_elegidas = []
+    
+    if opcion == "1":
+        materias_elegidas = materias_carrera
+    else:
+        materias = input("Ingrese el listado de materias, separadas por coma. Ejemplo: 1234, 5678, 9012  >>>  ")
+        materias_elegidas = limpiar_listado_materias(materias)
+
+    return materias_elegidas
+        
+
 def main() -> None:
     listado_materias = data
+    materias_elegidas = []
 
+    print("Listado de horarios de materias FIUBA")
+
+    materias_elegidas = elegir_materias()
     dia_str = ingresar_dia_semana()
     horario_inicio = ingresar_horario_inicio()
 
-    print(f"\n\nA continuacion se mostrarán todas las cátedras disponibles para cada materia de tu currícula personal\n", end="")
+    print(f"\n\nA continuacion se mostrarán todas las cátedras disponibles para cada materia de las que elegiste\n", end="")
     print(f"que dicten clases el dia {dia_str} después de las {horario_inicio} horas.\n")
     input("Pulsa una tecla para mostrar los resultados: ")
     print(2 * "\n")
 
-    guardar_catedras_disponibles(listado_materias, dia_str, horario_inicio)
+    guardar_catedras_disponibles(listado_materias, materias_elegidas, dia_str, horario_inicio)
 
     print("\nLas cátedras han sido obtenidas con éxito.")
     

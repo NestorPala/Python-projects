@@ -1,1 +1,1 @@
-python "C:\Users\Nestor\Desktop\get_datetime.py"
+cmd -k python "C:\Users\Nestor\Desktop\get_datetime.py"
