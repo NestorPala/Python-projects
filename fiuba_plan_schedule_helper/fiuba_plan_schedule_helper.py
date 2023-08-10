@@ -2,7 +2,7 @@ from functools import reduce
 import json
 import os
 import re
-from typing import Match
+from typing import Match, TextIO, Callable, Any
 from horarios import data
 from plan_estudio import materias_carrera
 
@@ -58,17 +58,22 @@ def curso_contiene_dia(curso: dict, dia: int) -> bool:
     )) > 0
 
 
-def curso_es_materia(curso: dict, materia: str) -> bool:
-    return int(curso["materia"]) == int(materia)
+def curso_es_materia(curso: dict, materia: int) -> bool:
+    return int(curso["materia"]) == materia
 
 
-def obtener_catedras_disponibles(listado_materias, materia, horario_inicio, dia_semana: int = None) -> list:
+def obtener_catedras_disponibles(
+    listado_materias: dict,
+    materia: int,
+    horario_inicio: str,
+    dia_semana: int = None
+) -> list:
     catedras = list()
     catedras_disponibles = list()
 
     for curso in listado_materias["cursos"]:
         if curso_es_materia(curso, materia):
-            if dia_semana:
+            if dia_semana is not None:
                 if curso_contiene_dia(curso, dia_semana):
                     curso["nombre"] = obtener_nombre_materia(listado_materias, curso["materia"])
                     catedras.append(curso)
@@ -122,6 +127,10 @@ def ingresar_dia_semana() -> str:
     return dia_semana.upper()
 
 
+def print_in_file(catedras_file: TextIO) -> Callable[[str, str], None]:
+    return lambda string, end="\n": print(string, end=end, file=catedras_file)
+
+
 def guardar_catedras_disponibles(
     listado_materias: dict,
     materias_elegidas: list[int],
@@ -130,6 +139,7 @@ def guardar_catedras_disponibles(
 ) -> None:
     catedras_file = open(CATEDRAS_OUTPUT, "w")
     catedras_disponibles_por_materia = dict()
+    print_catedras_file = print_in_file(catedras_file)
 
     for materia in materias_elegidas:
         catedras_disponibles_por_materia[materia] = obtener_catedras_disponibles(
@@ -138,38 +148,38 @@ def guardar_catedras_disponibles(
             horario_inicio, DIAS_SEMANA[dia]
         )
 
-    print(f"Estas son todas las cátedras disponibles para cada materia de las que elegiste\n", end="", file=catedras_file)
-    print(f"que dictan clases el dia {dia} después de las {horario_inicio} horas\n", file=catedras_file)
+    print_catedras_file(f"Estas son todas las cátedras disponibles para cada materia de las que elegiste\n", end="")
+    print_catedras_file(f"que dictan clases el dia {dia} después de las {horario_inicio} horas\n")
 
-    cantidad_disponibles = dict_amount_not_empty(catedras_disponibles_por_materia)
-    cantidad_totales = len(catedras_disponibles_por_materia)
+    cant_disponibles = dict_amount_not_empty(catedras_disponibles_por_materia)
+    cant_totales = len(catedras_disponibles_por_materia)
 
-    print(f"Materias con catedras disponibles para este día y horario: {cantidad_disponibles}/{cantidad_totales}\n", file=catedras_file)
-    print("(Aviso: pueden faltar algunos resultados. Esto se solucionará en versiones posteriores.)\n", file=catedras_file)
+    print_catedras_file(f"Materias con catedras disponibles para este día y horario: {cant_disponibles}/{cant_totales}\n")
+    print_catedras_file("(Aviso: pueden faltar algunos resultados. Esto se solucionará en versiones posteriores.)\n")
 
-    print("AYUDA:\n", file=catedras_file)
+    print_catedras_file("AYUDA:\n")
     for dia in DIAS_SEMANA:
         if DIAS_SEMANA[dia] is None:
             continue
-        print(f"Dia {DIAS_SEMANA[dia]}: {dia}", file=catedras_file)
-    print("\n\n", file=catedras_file)
+        print_catedras_file(f"Dia {DIAS_SEMANA[dia]}: {dia}")
+    print_catedras_file("\n\n")
 
     for codigo_materia in catedras_disponibles_por_materia:
         nombre_materia = obtener_nombre_materia(listado_materias, codigo_materia)
         listado_catedras = list_to_json(catedras_disponibles_por_materia[codigo_materia])
 
-        print(f"MATERIA: {nombre_materia} ({codigo_materia})", file=catedras_file)
-        print(listado_catedras, file=catedras_file)
-        print(separator(), file=catedras_file)
+        print_catedras_file(f"MATERIA: {nombre_materia} ({codigo_materia})")
+        print_catedras_file(listado_catedras)
+        print_catedras_file(separator())
 
     catedras_file.close()
 
 
 def limpiar_listado_materias(materias: str) -> list:
-    normalized = list(map(lambda materia: materia.replace(" ", ""), materias.split(",")))
-    cleaned = list(filter(lambda materia: materia != '', normalized))
-    casted = list(map(lambda materia: int(materia), cleaned))
-    return casted
+    normalized_list = list(map(lambda materia: materia.replace(" ", ""), materias.split(",")))
+    cleaned_list = list(filter(lambda materia: materia != '', normalized_list))
+    materias_list = list(map(lambda materia: int(materia), cleaned_list))
+    return materias_list
 
 
 def elegir_materias() -> list:
