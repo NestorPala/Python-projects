@@ -72,13 +72,15 @@ def obtener_catedras_disponibles(
     catedras_disponibles = list()
 
     for curso in listado_materias["cursos"]:
-        if curso_es_materia(curso, materia):
-            if dia_semana is not None:
-                if curso_contiene_dia(curso, dia_semana):
-                    curso["nombre"] = obtener_nombre_materia(listado_materias, curso["materia"])
-                    catedras.append(curso)
-            else:
-                catedras.append(curso)
+        if not curso_es_materia(curso, materia):
+            continue
+        if dia_semana is None:
+            catedras.append(curso)
+            continue
+        if not curso_contiene_dia(curso, dia_semana):
+            continue
+        curso["nombre"] = obtener_nombre_materia(listado_materias, curso["materia"])
+        catedras.append(curso)
 
     for catedra in catedras:
         if catedra_cumple_horario_inicio(catedra, horario_inicio):
