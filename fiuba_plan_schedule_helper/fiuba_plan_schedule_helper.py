@@ -19,6 +19,8 @@ DIAS_SEMANA = {
 
 CATEDRAS_OUTPUT = f'{os.path.dirname(os.path.abspath(__file__))}\\listado_catedras_disponibles.txt'
 
+UNKNOWN_SUBJECT = "(UNKNOWN SUBJECT)"
+
 
 def hora_menor(hora1: str, hora2: str):
     hora1 = ''.join(hora1.split(":"))
@@ -30,7 +32,7 @@ def hora_minima(horas: list) -> str:
     return reduce(lambda minimo, actual: hora_menor(minimo, actual), horas, horas[0])
 
 
-def catedra_cumple_horario_inicio(catedra: dict, horario_inicio: str) -> bool:
+def catedra_tiene_horario_inicio(catedra: dict, horario_inicio: str) -> bool:
     horarios_inicio = list()
 
     for clase in catedra["clases"]:
@@ -49,16 +51,16 @@ def obtener_nombre_materia(listado_materias: dict, codigo: int) -> str:
             listado_materias["materias"]
         )
     )
-    return nombre_materia[0]["nombre"] if nombre_materia else "UNKNOWN"
+    return nombre_materia[0]["nombre"] if nombre_materia else UNKNOWN_SUBJECT
 
 
-def curso_contiene_dia(curso: dict, dia: int) -> bool:
+def curso_se_dicta_el_dia(curso: dict, dia: int) -> bool:
     return len(list(
         filter(lambda clase: clase["dia"] == dia, curso["clases"])
     )) > 0
 
 
-def curso_es_materia(curso: dict, materia: int) -> bool:
+def curso_corresponde_a_materia(curso: dict, materia: int) -> bool:
     return int(curso["materia"]) == materia
 
 
@@ -68,22 +70,22 @@ def obtener_catedras_disponibles(
     horario_inicio: str,
     dia_semana: int = None
 ) -> list:
-    catedras = list()
+    catedra_list = list()
     catedras_disponibles = list()
 
     for curso in listado_materias["cursos"]:
-        if not curso_es_materia(curso, materia):
+        if not curso_corresponde_a_materia(curso, materia):
             continue
         if dia_semana is None:
-            catedras.append(curso)
+            catedra_list.append(curso)
             continue
-        if not curso_contiene_dia(curso, dia_semana):
+        if not curso_se_dicta_el_dia(curso, dia_semana):
             continue
         curso["nombre"] = obtener_nombre_materia(listado_materias, curso["materia"])
-        catedras.append(curso)
+        catedra_list.append(curso)
 
-    for catedra in catedras:
-        if catedra_cumple_horario_inicio(catedra, horario_inicio):
+    for catedra in catedra_list:
+        if catedra_tiene_horario_inicio(catedra, horario_inicio):
             catedras_disponibles.append(catedra)
 
     return catedras_disponibles
@@ -107,8 +109,8 @@ def separator() -> str:
 
 # "18:00" -> True; "asadasdasda" -> False
 # https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285
-def es_horario(texto: str) -> Match[str] | None:
-    return re.search("^\d\d\:\d\d$", texto)
+def es_horario(texto: str) -> bool:
+    return re.search("^\d\d\:\d\d$", texto) is not None
 
 
 def ingresar_horario_inicio() -> str:
@@ -118,19 +120,28 @@ def ingresar_horario_inicio() -> str:
     return horario_inicio
 
 
-def es_dia_semana(texto: str) -> bool:
+def es_dia_de_semana(texto: str) -> bool:
     return texto in DIAS_SEMANA
 
 
 def ingresar_dia_semana() -> str:
     dia_semana = "dia"
-    while not es_dia_semana(dia_semana.upper()):
-        dia_semana = input("Ingrese el dia de la semana para buscar cursos ('todos' para cualquier dia) >>>  ")
-    return dia_semana.upper()
+    while not es_dia_de_semana(dia_semana):
+        dia_semana = input("Ingrese el dia de la semana para buscar cursos ('todos' para cualquier dia) >>>  ").upper()
+    return dia_semana
 
 
 def print_in_file(catedras_file: TextIO) -> Callable[[str, str], None]:
     return lambda string, end="\n": print(string, end=end, file=catedras_file)
+
+
+def print_days_menu(print_func: Callable[[str, str], None]) -> None:
+    print_func("AYUDA:\n")
+    for dia in DIAS_SEMANA:
+        if DIAS_SEMANA[dia] is None:
+            continue
+        print_func(f"Dia {DIAS_SEMANA[dia]}: {dia}")
+    print_func("\n\n")
 
 
 def guardar_catedras_disponibles(
@@ -147,7 +158,8 @@ def guardar_catedras_disponibles(
         catedras_disponibles_por_materia[materia] = obtener_catedras_disponibles(
             listado_materias,
             materia,
-            horario_inicio, DIAS_SEMANA[dia]
+            horario_inicio,
+            DIAS_SEMANA[dia]
         )
 
     print_catedras_file(f"Estas son todas las cátedras disponibles para cada materia de las que elegiste\n", end="")
@@ -159,12 +171,7 @@ def guardar_catedras_disponibles(
     print_catedras_file(f"Materias con catedras disponibles para este día y horario: {cant_disponibles}/{cant_totales}\n")
     print_catedras_file("(Aviso: pueden faltar algunos resultados. Esto se solucionará en versiones posteriores.)\n")
 
-    print_catedras_file("AYUDA:\n")
-    for dia in DIAS_SEMANA:
-        if DIAS_SEMANA[dia] is None:
-            continue
-        print_catedras_file(f"Dia {DIAS_SEMANA[dia]}: {dia}")
-    print_catedras_file("\n\n")
+    print_days_menu(print_catedras_file)
 
     for codigo_materia in catedras_disponibles_por_materia:
         nombre_materia = obtener_nombre_materia(listado_materias, codigo_materia)
