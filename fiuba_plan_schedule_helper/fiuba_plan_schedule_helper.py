@@ -2,98 +2,100 @@ from functools import reduce
 import json
 import os
 import re
-from typing import Match, TextIO, Callable, Any
-from horarios import data
-from plan_estudio import materias_carrera
+from typing import TextIO, Callable
+from schedule import data
+from study_plan import career_subjects
 
 
-DIAS_SEMANA = {
+WEEK_DAYS = {
     "LUNES": 1,
     "MARTES": 2,
     "MIERCOLES": 3,
     "JUEVES": 4,
     "VIERNES": 5,
     "SABADO": 6,
-    "TODOS": None  # Todos los dias de la semana juntos
+    "TODOS": None  # All week days together
 }
 
-CATEDRAS_OUTPUT = f'{os.path.dirname(os.path.abspath(__file__))}\\listado_catedras_disponibles.txt'
+COURSES_OUTPUT = f'{os.path.dirname(os.path.abspath(__file__))}\\available_courses_list.txt'
 
 UNKNOWN_SUBJECT = "(UNKNOWN SUBJECT)"
 
-
-def hora_menor(hora1: str, hora2: str):
-    hora1 = ''.join(hora1.split(":"))
-    hora2 = ''.join(hora2.split(":"))
-    return hora1 if hora1 <= hora2 else hora2
+SEPARATOR_LENGTH = 80
 
 
-def hora_minima(horas: list) -> str:
-    return reduce(lambda minimo, actual: hora_menor(minimo, actual), horas, horas[0])
+def earliest_hour(hour1: str, hour2: str):
+    hour1 = ''.join(hour1.split(":"))
+    hour2 = ''.join(hour2.split(":"))
+    return hour1 if hour1 <= hour2 else hour2
 
 
-def catedra_tiene_horario_inicio(catedra: dict, horario_inicio: str) -> bool:
-    horarios_inicio = list()
-
-    for clase in catedra["clases"]:
-        horarios_inicio.append(clase["inicio"])
-
-    hora_minima_catedra = hora_minima(horarios_inicio)
-    horario_estudiante = ''.join(horario_inicio.split(":"))
-
-    return hora_minima_catedra >= horario_estudiante
+def minimum_hour(hours: list) -> str:
+    return reduce(lambda minimum, current: earliest_hour(minimum, current), hours, hours[0])
 
 
-def obtener_nombre_materia(listado_materias: dict, codigo: int) -> str:
-    nombre_materia = list(
+def course_has_start_hour(course: dict, start_hour: str) -> bool:
+    start_hours = list()
+
+    for class_ in course["clases"]:
+        start_hours.append(class_["inicio"])
+
+    course_minimum_hour = minimum_hour(start_hours)
+    student_hour = ''.join(start_hour.split(":"))
+
+    return course_minimum_hour >= student_hour
+
+
+def get_subject_name(subject_list: dict, subject_code: int) -> str:
+    subject_name = list(
         filter(
-            lambda materia: int(materia["codigo"]) == int(codigo),
-            listado_materias["materias"]
+            lambda subject: int(subject["codigo"]) == int(subject_code),
+            subject_list["materias"]
         )
     )
-    return nombre_materia[0]["nombre"] if nombre_materia else UNKNOWN_SUBJECT
+    return subject_name[0]["nombre"] if subject_name else UNKNOWN_SUBJECT
 
 
-def curso_se_dicta_el_dia(curso: dict, dia: int) -> bool:
+def course_is_taught_on_day(course: dict, day: int) -> bool:
     return len(list(
-        filter(lambda clase: clase["dia"] == dia, curso["clases"])
+        filter(lambda class_: class_["dia"] == day, course["clases"])
     )) > 0
 
 
-def curso_corresponde_a_materia(curso: dict, materia: int) -> bool:
-    return int(curso["materia"]) == materia
+def course_belongs_to_subject(course: dict, subject: int) -> bool:
+    return int(course["materia"]) == subject
 
 
-def obtener_catedras_disponibles(
-    listado_materias: dict,
-    materia: int,
-    horario_inicio: str,
-    dia_semana: int = None
+def get_available_courses(
+    subject_list: dict,
+    subject: int,
+    start_hour: str,
+    week_day: int = None
 ) -> list:
-    catedra_list = list()
-    catedras_disponibles = list()
+    course_list = list()
+    available_courses = list()
 
-    for curso in listado_materias["cursos"]:
-        if not curso_corresponde_a_materia(curso, materia):
+    for course in subject_list["cursos"]:
+        if not course_belongs_to_subject(course, subject):
             continue
-        if dia_semana is None:
-            catedra_list.append(curso)
+        if week_day is None:
+            course_list.append(course)
             continue
-        if not curso_se_dicta_el_dia(curso, dia_semana):
+        if not course_is_taught_on_day(course, week_day):
             continue
-        curso["nombre"] = obtener_nombre_materia(listado_materias, curso["materia"])
-        catedra_list.append(curso)
+        course["nombre"] = get_subject_name(subject_list, course["materia"])
+        course_list.append(course)
 
-    for catedra in catedra_list:
-        if catedra_tiene_horario_inicio(catedra, horario_inicio):
-            catedras_disponibles.append(catedra)
+    for course in course_list:
+        if course_has_start_hour(course, start_hour):
+            available_courses.append(course)
 
-    return catedras_disponibles
+    return available_courses
 
 
 def dict_amount_not_empty(dic: dict) -> int:
     return reduce(
-        lambda cantidad, actual: (cantidad + 1) if dic[actual] else cantidad,
+        lambda qty, current: (qty + 1) if dic[current] else qty,
         dic,
         0
     )
@@ -104,131 +106,131 @@ def list_to_json(li: list) -> str:
 
 
 def separator() -> str:
-    return 80 * "-"
+    return SEPARATOR_LENGTH * "-"
 
 
 # "18:00" -> True; "asadasdasda" -> False
 # https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285
-def es_horario(texto: str) -> bool:
-    return re.search("^\d\d\:\d\d$", texto) is not None
+def is_hour(text: str) -> bool:
+    return re.search("^\d\d\:\d\d$", text) is not None
 
 
-def ingresar_horario_inicio() -> str:
-    horario_inicio = "xx:xx"
-    while not es_horario(horario_inicio):
-        horario_inicio = input("Ingrese el horario en el que desea que inicie el curso (hh:mm)  >>>  ")
-    return horario_inicio
+def enter_start_hour() -> str:
+    start_hour = "xx:xx"
+    while not is_hour(start_hour):
+        start_hour = input("Ingrese el horario en el que desea que inicie el curso (hh:mm)  >>>  ")
+    return start_hour
 
 
-def es_dia_de_semana(texto: str) -> bool:
-    return texto in DIAS_SEMANA
+def is_week_day(text: str) -> bool:
+    return text in WEEK_DAYS
 
 
-def ingresar_dia_semana() -> str:
-    dia_semana = "dia"
-    while not es_dia_de_semana(dia_semana):
-        dia_semana = input("Ingrese el dia de la semana para buscar cursos ('todos' para cualquier dia) >>>  ").upper()
-    return dia_semana
+def enter_week_day() -> str:
+    day = "day"
+    while not is_week_day(day):
+        day = input("Ingrese el dia de la semana para buscar cursos ('todos' para cualquier dia) >>>  ").upper()
+    return day
 
 
-def print_in_file(catedras_file: TextIO) -> Callable[[str, str], None]:
-    return lambda string, end="\n": print(string, end=end, file=catedras_file)
+def print_in_file(courses_file: TextIO) -> Callable[[str, str], None]:
+    return lambda string, end="\n": print(string, end=end, file=courses_file)
 
 
 def print_days_menu(print_func: Callable[[str, str], None]) -> None:
     print_func("AYUDA:\n")
-    for dia in DIAS_SEMANA:
-        if DIAS_SEMANA[dia] is None:
+    for day in WEEK_DAYS:
+        if WEEK_DAYS[day] is None:
             continue
-        print_func(f"Dia {DIAS_SEMANA[dia]}: {dia}")
+        print_func(f"Dia {WEEK_DAYS[day]}: {day}")
     print_func("\n\n")
 
 
-def guardar_catedras_disponibles(
-    listado_materias: dict,
-    materias_elegidas: list[int],
-    dia: str,
-    horario_inicio: str
+def save_available_courses(
+    subject_list: dict,
+    chosen_subjects: list[int],
+    day: str,
+    start_hour: str
 ) -> None:
-    catedras_file = open(CATEDRAS_OUTPUT, "w")
-    catedras_disponibles_por_materia = dict()
-    print_catedras_file = print_in_file(catedras_file)
+    courses_file = open(COURSES_OUTPUT, "w")
+    available_courses_per_subject = dict()
+    print_courses_file = print_in_file(courses_file)
 
-    for materia in materias_elegidas:
-        catedras_disponibles_por_materia[materia] = obtener_catedras_disponibles(
-            listado_materias,
-            materia,
-            horario_inicio,
-            DIAS_SEMANA[dia]
+    for subject in chosen_subjects:
+        available_courses_per_subject[subject] = get_available_courses(
+            subject_list,
+            subject,
+            start_hour,
+            WEEK_DAYS[day]
         )
 
-    print_catedras_file(f"Estas son todas las cátedras disponibles para cada materia de las que elegiste\n", end="")
-    print_catedras_file(f"que dictan clases el dia {dia} después de las {horario_inicio} horas\n")
+    print_courses_file(f"Estas son todas las cátedras disponibles para cada materia de las que elegiste\n", end="")
+    print_courses_file(f"que dictan clases el dia {day} después de las {start_hour} horas\n")
 
-    cant_disponibles = dict_amount_not_empty(catedras_disponibles_por_materia)
-    cant_totales = len(catedras_disponibles_por_materia)
+    amount_available = dict_amount_not_empty(available_courses_per_subject)
+    total_amount = len(available_courses_per_subject)
 
-    print_catedras_file(f"Materias con catedras disponibles para este día y horario: {cant_disponibles}/{cant_totales}\n")
-    print_catedras_file("(Aviso: pueden faltar algunos resultados. Esto se solucionará en versiones posteriores.)\n")
+    print_courses_file(f"Materias con catedras disponibles para este día y horario: {amount_available}/{total_amount}\n")
+    print_courses_file("(Aviso: pueden faltar algunos resultados. Esto se solucionará en versiones posteriores.)\n")
 
-    print_days_menu(print_catedras_file)
+    print_days_menu(print_courses_file)
 
-    for codigo_materia in catedras_disponibles_por_materia:
-        nombre_materia = obtener_nombre_materia(listado_materias, codigo_materia)
-        listado_catedras = list_to_json(catedras_disponibles_por_materia[codigo_materia])
+    for subject_code in available_courses_per_subject:
+        subject_name = get_subject_name(subject_list, subject_code)
+        course_list = list_to_json(available_courses_per_subject[subject_code])
 
-        print_catedras_file(f"MATERIA: {nombre_materia} ({codigo_materia})")
-        print_catedras_file(listado_catedras)
-        print_catedras_file(separator())
+        print_courses_file(f"MATERIA: {subject_name} ({subject_code})")
+        print_courses_file(course_list)
+        print_courses_file(separator())
 
-    catedras_file.close()
-
-
-def limpiar_listado_materias(materias: str) -> list:
-    normalized_list = list(map(lambda materia: materia.replace(" ", ""), materias.split(",")))
-    cleaned_list = list(filter(lambda materia: materia != '', normalized_list))
-    materias_list = list(map(lambda materia: int(materia), cleaned_list))
-    return materias_list
+    courses_file.close()
 
 
-def elegir_materias() -> list:
+def clean_subject_list(subjects: str) -> list:
+    normalized_list = list(map(lambda subject: subject.replace(" ", ""), subjects.split(",")))
+    cleaned_list = list(filter(lambda subject: subject != '', normalized_list))
+    subject_list = list(map(lambda subject: int(subject), cleaned_list))
+    return subject_list
+
+
+def choose_subjects() -> list:
     print("Mostrar datos de materias de:")
     print("1) La currícula personal")
     print("2) Un listado específico")
 
-    opcion = ""
+    option = ""
 
-    while opcion != "1" and opcion != "2":
-        opcion = input("Ingrese 1 o 2: ")
+    while option != "1" and option != "2":
+        option = input("Ingrese 1 o 2: ")
 
-    if opcion == "1":
-        materias_elegidas = materias_carrera
+    if option == "1":
+        chosen_subjects = career_subjects
     else:
-        materias = input("Ingrese el listado de materias, separadas por coma. Ejemplo: 1234, 5678, 9012  >>>  ")
-        materias_elegidas = limpiar_listado_materias(materias)
+        subjects = input("Ingrese el listado de materias, separadas por coma. Ejemplo: 1234, 5678, 9012  >>>  ")
+        chosen_subjects = clean_subject_list(subjects)
 
-    return materias_elegidas
+    return chosen_subjects
 
 
 def main() -> None:
-    listado_materias = data
+    subject_list = data
 
     print("Listado de horarios de materias FIUBA")
 
-    materias_elegidas = elegir_materias()
-    dia_str = ingresar_dia_semana()
-    horario_inicio = ingresar_horario_inicio()
+    chosen_subjects = choose_subjects()
+    day_str = enter_week_day()
+    start_hour = enter_start_hour()
 
     print(f"\n\nA continuacion se mostrarán todas las cátedras disponibles para cada materia de las que elegiste\n", end="")
-    print(f"que dicten clases el dia {dia_str} después de las {horario_inicio} horas.\n")
+    print(f"que dicten clases el dia {day_str} después de las {start_hour} horas.\n")
     input("Pulsa una tecla para mostrar los resultados: ")
     print(2 * "\n")
 
-    guardar_catedras_disponibles(listado_materias, materias_elegidas, dia_str, horario_inicio)
+    save_available_courses(subject_list, chosen_subjects, day_str, start_hour)
 
     print("\nLas cátedras han sido obtenidas con éxito.")
 
-    os.popen(CATEDRAS_OUTPUT)
+    os.popen(COURSES_OUTPUT)
 
 
 main()

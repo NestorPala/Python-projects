@@ -1,7 +1,7 @@
 # Listado de todas las materias restantes para terminar la carrera
 # (Borrar las materias ya cursadas)
 
-materias_carrera = [
+career_subjects = [
     6203,
     7512,
     6109,
