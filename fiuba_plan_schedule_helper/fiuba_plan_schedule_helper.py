@@ -107,9 +107,9 @@ def get_available_courses(
     return available_courses
 
 
-def dict_amount_not_empty(dic: dict) -> int:
+def dict_count_not_empty(dic: dict) -> int:
     return reduce(
-        lambda qty, current: (qty + 1) if dic[current] else qty,
+        lambda count, current: (count + 1) if dic[current] else count,
         dic,
         0
     )
@@ -147,8 +147,8 @@ def enter_week_day() -> str:
     return day
 
 
-def print_in_file(courses_file: TextIO) -> Callable[[str, str], None]:
-    return lambda string, end="\n": print(string, end=end, file=courses_file)
+def print_in_file(file: TextIO) -> Callable[[str, str], None]:
+    return lambda string, end="\n": print(string, end=end, file=file)
 
 
 def print_days_menu(print_func: Callable[[str, str], None]) -> None:
@@ -181,7 +181,7 @@ def save_available_courses(
     print_courses_file(f"Estas son todas las cátedras disponibles para cada materia de las que elegiste\n", end="")
     print_courses_file(f"que dictan clases el dia {day} después de las {start_hour} horas\n")
 
-    amount_available = dict_amount_not_empty(available_courses_per_subject)
+    amount_available = dict_count_not_empty(available_courses_per_subject)
     total_amount = len(available_courses_per_subject)
 
     print_courses_file(f"Materias con catedras disponibles para este día y horario: {amount_available}/{total_amount}\n")
