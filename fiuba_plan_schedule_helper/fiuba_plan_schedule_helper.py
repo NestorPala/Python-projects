@@ -22,11 +22,25 @@ COURSES_OUTPUT = f'{os.path.dirname(os.path.abspath(__file__))}\\available_cours
 UNKNOWN_SUBJECT = "(UNKNOWN SUBJECT)"
 
 SEPARATOR_LENGTH = 80
+SEPARATOR_SYMBOL = "-"
+
+_CODE_ = "codigo"
+_SUBJECT_ = "materia"
+_SUBJECTS_ = "materias"
+_NAME_ = "nombre"
+_DAY_ = "dia"
+_CLASSES_ = "clases"
+_START_ = "inicio"
+_COURSES_ = "cursos"
+
+
+def remove_hour_separator(hour_str: str) -> str:
+    return ''.join(hour_str.split(":"))
 
 
 def earliest_hour(hour1: str, hour2: str):
-    hour1 = ''.join(hour1.split(":"))
-    hour2 = ''.join(hour2.split(":"))
+    hour1 = remove_hour_separator(hour1)
+    hour2 = remove_hour_separator(hour2)
     return hour1 if hour1 <= hour2 else hour2
 
 
@@ -37,11 +51,11 @@ def minimum_hour(hours: list) -> str:
 def course_has_start_hour(course: dict, start_hour: str) -> bool:
     start_hours = list()
 
-    for class_ in course["clases"]:
-        start_hours.append(class_["inicio"])
+    for class_ in course[_CLASSES_]:
+        start_hours.append(class_[_START_])
 
     course_minimum_hour = minimum_hour(start_hours)
-    student_hour = ''.join(start_hour.split(":"))
+    student_hour = remove_hour_separator(start_hour)
 
     return course_minimum_hour >= student_hour
 
@@ -49,21 +63,21 @@ def course_has_start_hour(course: dict, start_hour: str) -> bool:
 def get_subject_name(subject_list: dict, subject_code: int) -> str:
     subject_name = list(
         filter(
-            lambda subject: int(subject["codigo"]) == int(subject_code),
-            subject_list["materias"]
+            lambda subject: int(subject[_CODE_]) == int(subject_code),
+            subject_list[_SUBJECTS_]
         )
     )
-    return subject_name[0]["nombre"] if subject_name else UNKNOWN_SUBJECT
+    return subject_name[0][_NAME_] if subject_name else UNKNOWN_SUBJECT
 
 
 def course_is_taught_on_day(course: dict, day: int) -> bool:
     return len(list(
-        filter(lambda class_: class_["dia"] == day, course["clases"])
+        filter(lambda class_: class_[_DAY_] == day, course[_CLASSES_])
     )) > 0
 
 
 def course_belongs_to_subject(course: dict, subject: int) -> bool:
-    return int(course["materia"]) == subject
+    return int(course[_SUBJECT_]) == subject
 
 
 def get_available_courses(
@@ -75,7 +89,7 @@ def get_available_courses(
     course_list = list()
     available_courses = list()
 
-    for course in subject_list["cursos"]:
+    for course in subject_list[_COURSES_]:
         if not course_belongs_to_subject(course, subject):
             continue
         if week_day is None:
@@ -83,7 +97,7 @@ def get_available_courses(
             continue
         if not course_is_taught_on_day(course, week_day):
             continue
-        course["nombre"] = get_subject_name(subject_list, course["materia"])
+        course[_NAME_] = get_subject_name(subject_list, course[_SUBJECT_])
         course_list.append(course)
 
     for course in course_list:
@@ -106,7 +120,7 @@ def list_to_json(li: list) -> str:
 
 
 def separator() -> str:
-    return SEPARATOR_LENGTH * "-"
+    return SEPARATOR_LENGTH * SEPARATOR_SYMBOL
 
 
 # "18:00" -> True; "asadasdasda" -> False
